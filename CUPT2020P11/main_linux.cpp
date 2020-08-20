@@ -1,12 +1,13 @@
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <cstdio>
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <string>
 #include <pthread.h>
+#include <math.h>
 
 #define random() rand()/double(RAND_MAX)
 #define MAX_INTENSITY 5000
