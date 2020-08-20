@@ -18,12 +18,18 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="calc.cpp">
+    <ClCompile Include="geoOptic.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="interferenceOptic.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="calc.h">
+    <ClInclude Include="geoOptic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="interferenceOptic.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
