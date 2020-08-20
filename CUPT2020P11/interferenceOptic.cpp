@@ -16,22 +16,22 @@ wave::wave(double freqa, double ampla, double phasea, double ya, double za)
 	z = za;
 }
 
-void wave::calcDistributionOnPlane(double xa, float** plane, double planeya, double planeza, long solutionH, long solutionW)
+void wave::calcDistributionOnPlane(double xa, float** plane, double planeYMAXa, double planeYMINa, double planeZMAXa, double planeZMINa, long solutionH, long solutionW)
 {
-	double yUnit = planeya / double(solutionH), zUnit = planeza / double(solutionW);
+	double yUnit = (planeYMAXa - planeYMINa) / double(solutionH), zUnit = (planeZMAXa - planeZMINa) / double(solutionW);
 	for(long i = 0;i<solutionH;i++)
 	{
 		for (long j = 0; j < solutionW; j++)
 		{
-			double x1 = xa, y1 = i * yUnit, z1 = j * zUnit, r, t;
+			double x1 = xa, y1 = planeYMINa + i * yUnit, z1 = planeZMINa + j * zUnit, r, t;
 			r = sqrt(pow(x1, 2) + pow(y1 - y, 2) + pow(z1 - z, 2));
 			t = r / SPEED;
-			plane[i][j] += ampl * sin(freq * t + phase);
+			plane[i][j] += ampl * sin(6.283185306 * freq * t + phase) / pow((r / DEFAULT_RADIUS),2);
 		}
 	}
 }
 
-speckle::speckle(long waveNuma, double xa, double freqa, double waveYMAXa, double waveYMINa, double waveZMAXa, double waveZMINa, double planeya, double planeza, long solutionXa, long solutionYa, std::string fileNamea)
+speckle::speckle(long waveNuma, double xa, double freqa, double waveYMAXa, double waveYMINa, double waveZMAXa, double waveZMINa, double planeYMAXa, double planeYMINa, double planeZMAXa, double planeZMINa, long solutionXa, long solutionYa, std::string fileNamea)
 {
 	waveNum = waveNuma;
 	freq = freqa;
@@ -43,11 +43,13 @@ speckle::speckle(long waveNuma, double xa, double freqa, double waveYMAXa, doubl
 	solutionH = solutionYa;
 	x = xa;
 	fileName = fileNamea;
-	planey = planeya;
-	planez = planeza;
+	planeYMAX = planeYMAXa;
+	planeYMIN = planeYMINa;
+	planeZMAX = planeZMAXa;
+	planeZMIN = planeZMINa;
 	waves = new wave[waveNum];
 	plane = new float* [solutionH];
-	for (long i = 0; i < waveNum; i++)
+	for (long i = 0; i < solutionH; i++)
 		plane[i] = new float[solutionW];
 	for (long i = 0; i < solutionH; i++)
 		for (long j = 0; j < solutionW; j++)
@@ -84,7 +86,7 @@ void speckle::generateImage()
 	for (long i = 0; i < waveNum; i++)
 	{
 		wave w = waves[i];
-		w.calcDistributionOnPlane(x, plane, planey, planez, solutionH, solutionW);
+		w.calcDistributionOnPlane(x, plane, planeYMAX, planeYMIN, planeZMAX, planeZMIN, solutionH, solutionW);
 		if (i%unit == 0)
 		{
 			percentage++;
