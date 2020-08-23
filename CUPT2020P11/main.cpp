@@ -14,7 +14,7 @@ void main(void)
 	s2.genreateRay();
 	s2.generateImage();
 	*/
-	speckle s3(50000, 0.5, 44000, 0.05, -0.05, 0.05, -0.05, 500, -500, 500, -500, 800, 800, "Image4.csv");
+	speckle s3(2000, 0.5, 44000, 0.05, -0.05, 0.05, -0.05, 3, -3, 3, -3, 800, 800, "Image4.csv");
 	s3.generateWaves();
 	s3.generateImage();
 }
